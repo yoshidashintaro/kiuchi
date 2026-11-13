@@ -47,27 +47,45 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .act{width:50px;height:50px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:9.5px;font-weight:700;letter-spacing:0;line-height:1;transition:height .2s,transform .1s}
 .act:active{transform:scale(.96)}
 .act .ico{width:21px;height:21px}
-.hd.is-compact .act{height:46px}
 .act-rsv{background:var(--accent);color:#fff}
 .act-line{background:var(--line);color:#fff}
 .act-map{background:var(--sage-50);color:var(--sage)}
 .act-menu{background:transparent;color:var(--ink);border:1px solid var(--border)}
+html{scroll-padding-top:130px}
+/* スマホ・タブレット：1段目＝ロゴ＋メニュー／2段目＝大きなCTA 3つ */
+@media (max-width:1023px){
+  .hd-in{flex-wrap:wrap;height:auto;column-gap:10px;row-gap:8px;padding:8px 12px 10px}
+  .hd.is-compact .hd-in{height:auto;padding:6px 12px 8px;row-gap:6px}
+  .logo{flex:1 1 calc(100% - 130px);order:0}
+  .acts{display:contents}
+  .act-menu{order:1;flex:none;width:auto;height:42px;flex-direction:row;gap:5px;padding:0 12px;font-size:12px}
+  .act-rsv,.act-line,.act-map{order:2;flex:1 1 28%;min-width:0;height:52px;flex-direction:row;gap:7px;font-size:15px;letter-spacing:.04em;border-radius:12px}
+  .act-rsv .ico,.act-line .ico,.act-map .ico{width:24px;height:24px}
+  .act-map{border:1px solid rgba(0,0,0,.04)}
+  .hd.is-compact .act-rsv,.hd.is-compact .act-line,.hd.is-compact .act-map{height:48px}
+  .hd.is-compact .act-menu{height:38px}
+  .hd.is-compact .logo-mark{width:28px;height:28px}
+}
 @media (max-width:359px){
-  .logo-mark{display:none}
   .logo-txt b{font-size:13.5px}
-  .act{width:46px}
+  .act-rsv,.act-line,.act-map{font-size:13px;gap:4px}
+  .act-rsv .ico,.act-line .ico,.act-map .ico{width:20px;height:20px}
 }
 @media (min-width:1024px){
+  html{scroll-padding-top:90px}
   .hd-in{height:84px;padding:0 24px}
   .hd.is-compact .hd-in{height:68px}
   .logo-mark{width:42px;height:42px}
   .logo-txt b{font-size:19px}
   .logo-txt small{font-size:10px}
-  .hd-nav{display:flex;gap:22px;font-size:14px;font-weight:500;margin-left:auto;margin-right:20px}
+  .act{width:auto;height:46px;flex-direction:row;padding:0 16px;gap:6px;font-size:13px;white-space:nowrap}
+  .hd.is-compact .act{height:42px}
+}
+/* PC幅：グローバルナビを表示（1200px未満はメニューボタンで対応し、折り返し崩れを防ぐ） */
+@media (min-width:1200px){
+  .hd-nav{display:flex;gap:20px;font-size:14px;font-weight:500;margin-left:auto;margin-right:20px;white-space:nowrap}
   .hd-nav a{padding:6px 0;border-bottom:1px solid transparent}
   .hd-nav a:hover{border-color:var(--accent);color:var(--accent)}
-  .act{width:auto;height:46px;flex-direction:row;padding:0 16px;gap:6px;font-size:13px}
-  .hd.is-compact .act{height:42px}
   .act-menu{display:none}
 }
 
@@ -105,6 +123,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .ph-cap .ico{width:13px;height:13px}
 .ph.sage{background:linear-gradient(150deg,#E6EEE7,#CBDCCF 60%,#B5CBBB)}
 .ph.cream{background:linear-gradient(150deg,#F5EEE4,#E8DBC8 60%,#DCC9AE)}
+/* 写真（モック用イメージ） */
+.ph>.ph-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ph:has(.ph-img)::after{display:none}
+.ig-grid .ph:has(.ph-img)::before{content:"";position:absolute;inset:0;background:rgba(59,51,48,.42);z-index:1}
+.ig-grid .ph span{position:relative;z-index:2}
+.ig-grid .ph:has(.ph-img) span{color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.35)}
 
 /* ===== Hero ===== */
 .hero{position:relative;padding:14px 0 36px;overflow:hidden}
@@ -277,6 +301,28 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .dr-name b{font-family:var(--mincho);font-size:22px;letter-spacing:.14em}
 .cred{display:flex;flex-wrap:wrap;gap:6px}
 .cred span{font-size:11.5px;padding:3px 10px;border-radius:999px;background:var(--sage-50);color:var(--sage);font-weight:700}
+.dr-photo-img{margin:0;overflow:hidden;background:#EFE7E0}
+.dr-photo-img img{width:100%;height:100%;object-fit:cover;object-position:center 20%}
+.dr-name .dr-kana,.dr-sub-name .dr-kana{font-size:11.5px;color:var(--muted);letter-spacing:.1em}
+.dr-more{margin-top:16px;border:1px solid var(--border);border-radius:12px;background:#fff}
+.dr-more summary{cursor:pointer;list-style:none;padding:12px 16px;font-size:13.5px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.dr-more summary::-webkit-details-marker{display:none}
+.dr-more summary::after{content:"+";font-size:18px;color:var(--accent);font-weight:400}
+.dr-more[open] summary::after{content:"−"}
+.dr-hist{list-style:none;margin:0;padding:0 16px 14px}
+.dr-hist li{position:relative;padding:6px 0 6px 18px;font-size:13.5px;border-top:1px dashed var(--border)}
+.dr-hist li::before{content:"";position:absolute;left:2px;top:14px;width:7px;height:7px;border-radius:50%;background:var(--rose-100)}
+.dr-hobby{margin-top:14px;padding:14px 16px;border-radius:12px;background:var(--sage-50);font-size:13.5px;line-height:1.85}
+.dr-hobby b{display:block;font-size:12px;color:var(--sage);letter-spacing:.08em;margin-bottom:2px}
+.dr-sub{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:start;margin-top:32px;padding:18px;border-radius:18px;background:#fff;border:1px solid var(--border)}
+.dr-sub img{width:96px;height:96px;border-radius:50%;object-fit:cover}
+.dr-sub-name{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.dr-sub-name small{font-size:11.5px;color:var(--muted)}
+.dr-sub-name b{font-family:var(--mincho);font-size:18px;letter-spacing:.12em}
+.dr-sub p{font-size:13.5px;line-height:1.85;margin-bottom:10px}
+.dr-note{margin-top:14px;font-size:12.5px;color:var(--muted)}
+.dr-note a{text-decoration:underline;color:var(--accent)}
+@media (min-width:760px){.dr-sub{grid-template-columns:120px 1fr;padding:22px 26px}.dr-sub img{width:120px;height:120px}}
 .dr-links{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:20px}
 .dr-links a{min-height:50px;border-radius:12px;border:1px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;gap:6px;font-size:13.5px;font-weight:700}
 .dr-links .ico{width:18px;height:18px;color:var(--accent)}
@@ -630,10 +676,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   <div class="wrap">
     <div class="sec-hd"><span class="eyebrow">FEATURES</span><h2>当院の特徴</h2></div>
     <div class="feat-grid">
-      <article class="feat"><div class="ph"><span class="ph-cap"><svg class="ico"><use href="#i-cam"/></svg>院長が患者さまの話を聞く様子</span></div><div class="feat-body"><span class="feat-no">01</span><h3>女性医師が、<br>じっくりお話をうかがいます</h3><p>言いにくいお悩みも、まずはお話しください。同じ女性として、気持ちに寄り添った診療を心がけています。</p></div></article>
-      <article class="feat"><div class="ph sage"><span class="ph-cap"><svg class="ico"><use href="#i-cam"/></svg>待合室（やわらかな光）</span></div><div class="feat-body"><span class="feat-no">02</span><h3>思春期から閉経後まで、<br>ずっと通えるクリニック</h3><p>初めての婦人科から、妊娠・出産、更年期、閉経後まで。年代ごとに変わるからだを継続して診ていきます。</p></div></article>
-      <article class="feat"><div class="ph cream"><span class="ph-cap"><svg class="ico"><use href="#i-cam"/></svg>検査機器・処置室</span></div><div class="feat-body"><span class="feat-no">03</span><h3>精密検査・日帰り手術に<br>院内で対応</h3><p>必要な検査や処置を院内で行える体制を整えています。より高度な治療が必要な場合は、連携医療機関へご紹介します。</p></div></article>
-      <article class="feat"><div class="ph"><span class="ph-cap"><svg class="ico"><use href="#i-cam"/></svg>駅からの外観・入口</span></div><div class="feat-body"><span class="feat-no">04</span><h3>西宮北口駅から徒歩1分、<br>お仕事帰りにも</h3><p>駅からすぐの立地で、お仕事や学校の帰りにも立ち寄りやすい場所です。</p></div></article>
+      <article class="feat"><div class="ph"><img class="ph-img" src="img/photo/r-shinsatsu1.jpg" alt="プライバシーに配慮した診察室" loading="lazy"></div><div class="feat-body"><span class="feat-no">01</span><h3>女性医師が、<br>じっくりお話をうかがいます</h3><p>言いにくいお悩みも、まずはお話しください。同じ女性として、気持ちに寄り添った診療を心がけています。</p></div></article>
+      <article class="feat"><div class="ph sage"><img class="ph-img" src="img/photo/p-waiting.jpg" alt="落ち着いた待合室" loading="lazy"></div><div class="feat-body"><span class="feat-no">02</span><h3>思春期から閉経後まで、<br>ずっと通えるクリニック</h3><p>初めての婦人科から、妊娠・出産、更年期、閉経後まで。年代ごとに変わるからだを継続して診ていきます。</p></div></article>
+      <article class="feat"><div class="ph cream"><img class="ph-img" src="img/photo/p-echo-scene.jpg" alt="超音波検査の様子" loading="lazy"></div><div class="feat-body"><span class="feat-no">03</span><h3>精密検査・日帰り手術に<br>院内で対応</h3><p>必要な検査や処置を院内で行える体制を整えています。より高度な治療が必要な場合は、連携医療機関へご紹介します。</p></div></article>
+      <article class="feat"><div class="ph"><img class="ph-img" src="img/photo/p-building.jpg" alt="西宮北口駅近くのクリニックが入る建物" loading="lazy"></div><div class="feat-body"><span class="feat-no">04</span><h3>西宮北口駅から徒歩1分、<br>お仕事帰りにも</h3><p>駅からすぐの立地で、お仕事や学校の帰りにも立ち寄りやすい場所です。</p></div></article>
     </div>
   </div>
 </section>
@@ -643,18 +689,40 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   <div class="wrap">
     <div class="sec-hd"><span class="eyebrow">DOCTOR</span><h2>院長紹介</h2></div>
     <div class="dr">
-      <div class="ph dr-photo"><svg class="sil" viewBox="0 0 200 220"><use href="#sil"/></svg><span class="ph-cap"><svg class="ico"><use href="#i-cam"/></svg>院長ポートレート（自然な笑顔）</span></div>
+      <figure class="dr-photo dr-photo-img"><img src="img/doctor-aoi.jpg" alt="院長 青井千尋" width="521" height="552" loading="lazy"></figure>
       <div>
-        <p class="dr-quote">「こんなことで受診していいのかな」<br>その迷いごと、お話しください。</p>
-        <p class="dr-txt">女性のからだは、年代やライフステージによって大きく変化します。小さな不調でも、我慢せずに相談できる場所でありたい。患者さま一人ひとりのお話をていねいにうかがい、納得して治療を選んでいただけるよう説明を大切にしています。<br><span style="font-size:11px;color:var(--muted)">※文章は既存インタビューを再編集予定のダミー</span></p>
-        <div class="dr-name"><small>院長</small><b>木内 ○○</b></div>
-        <div class="cred"><span>日本産科婦人科学会 専門医</span><span>○○学会 認定医</span><span>※資格表記は要事実確認</span></div>
+        <p class="dr-quote">「ここに来てよかった」と、<br>安心してお帰りいただけるように。</p>
+        <p class="dr-txt">木内女性クリニックで14年、婦人科のかかりつけ医として診療を続けてきました。分かりやすい説明を心がけ、「来院して良かった」と思っていただける診療を大切にしています。軽い症状でも一人で抱え込まず、どうぞ気軽にご相談ください。</p>
+        <div class="dr-name"><small>院長</small><b>青井 千尋</b><span class="dr-kana">あおい ちひろ</span></div>
+        <div class="cred"><span>日本産科婦人科学会 産婦人科専門医</span><span>2026年6月 院長就任</span></div>
+        <details class="dr-more">
+          <summary>経歴を見る</summary>
+          <ul class="dr-hist">
+            <li>兵庫医科大学医学部 卒業</li>
+            <li>兵庫医科大学医学部 産婦人科学講座 入局</li>
+            <li>恵生会病院 産婦人科</li>
+            <li>宝塚市立病院 産婦人科</li>
+            <li>府中のぞみクリニック</li>
+            <li>木内女性クリニック 勤務（14年）</li>
+            <li>2026年6月 木内女性クリニック 院長就任</li>
+          </ul>
+        </details>
+        <div class="dr-hobby"><b>院長のひとこと</b>油絵や美術館巡り、音楽、能・狂言などの古典芸能鑑賞が長年の趣味です。カエルのモチーフも大好きで、つい集めてしまいます。</div>
         <div class="dr-links">
-          <a href="#"><svg class="ico"><use href="#i-woman"/></svg>経歴・ごあいさつ</a>
+          <a href="https://www.kiuchi-cl.com/doctor/" target="_blank" rel="noopener"><svg class="ico"><use href="#i-woman"/></svg>経歴・ごあいさつ</a>
           <a href="#"><svg class="ico"><use href="#i-play"/></svg>院長インタビュー動画</a>
         </div>
       </div>
     </div>
+    <div class="dr-sub">
+      <img src="img/doctor-kiuchi.jpg" alt="名誉院長 木内千暁" width="497" height="499" loading="lazy">
+      <div>
+        <div class="dr-sub-name"><small>名誉院長</small><b>木内 千暁</b><span class="dr-kana">きうち ちさと</span></div>
+        <p>検診から日帰り手術、更年期障害、避妊のご相談まで、女性の健康をトータルにサポートしてきました。</p>
+        <div class="cred"><span>産婦人科専門医</span><span>女性ヘルスケア専門医</span><span>心身医療専門医</span><span>日本心身医学会 認定医</span><span>日本医師会認定 健康スポーツ医</span></div>
+      </div>
+    </div>
+    <p class="dr-note">ほかに女性医師（産婦人科一般）が曜日により診療を担当しています。担当医は<a href="#hours">診療時間</a>をご確認ください。</p>
   </div>
 </section>
 
@@ -663,18 +731,18 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   <div class="wrap">
     <div class="sec-hd"><span class="eyebrow">CLINIC TOUR</span><h2>院内・スタッフ紹介</h2><p>ご来院の流れに沿って、院内をご案内します</p></div>
     <div class="scroller">
-      <figure class="gal"><div class="ph"><span class="ph-cap"><svg class="ico"><use href="#i-cam"/></svg>写真差し替え</span></div><figcaption><div class="gal-t"><b>01</b><span>ビル入口</span></div><p>駅からすぐ。1階に案内看板があります。</p></figcaption></figure>
-      <figure class="gal"><div class="ph cream"><span class="ph-cap"><svg class="ico"><use href="#i-cam"/></svg>写真差し替え</span></div><figcaption><div class="gal-t"><b>02</b><span>受付</span></div><p>保険証のご提示と、問診の確認を行います。</p></figcaption></figure>
-      <figure class="gal"><div class="ph sage"><span class="ph-cap"><svg class="ico"><use href="#i-cam"/></svg>写真差し替え</span></div><figcaption><div class="gal-t"><b>03</b><span>待合室</span></div><p>落ち着いてお待ちいただける空間です。</p></figcaption></figure>
-      <figure class="gal"><div class="ph"><span class="ph-cap"><svg class="ico"><use href="#i-cam"/></svg>写真差し替え</span></div><figcaption><div class="gal-t"><b>04</b><span>診察室</span></div><p>プライバシーに配慮した個室です。</p></figcaption></figure>
-      <figure class="gal"><div class="ph cream"><span class="ph-cap"><svg class="ico"><use href="#i-cam"/></svg>写真差し替え</span></div><figcaption><div class="gal-t"><b>05</b><span>検査設備</span></div><p>超音波検査機器など。</p></figcaption></figure>
-      <figure class="gal"><div class="ph sage"><span class="ph-cap"><svg class="ico"><use href="#i-cam"/></svg>写真差し替え</span></div><figcaption><div class="gal-t"><b>06</b><span>お会計</span></div><p>各種キャッシュレス決済に対応。</p></figcaption></figure>
+      <figure class="gal"><div class="ph"><img class="ph-img" src="img/photo/p-entrance.jpg" alt="クリニック入口" loading="lazy"></div><figcaption><div class="gal-t"><b>01</b><span>ビル入口</span></div><p>駅からすぐ。1階に案内看板があります。</p></figcaption></figure>
+      <figure class="gal"><div class="ph cream"><img class="ph-img" src="img/photo/p-reception.jpg" alt="受付" loading="lazy"></div><figcaption><div class="gal-t"><b>02</b><span>受付</span></div><p>保険証のご提示と、問診の確認を行います。</p></figcaption></figure>
+      <figure class="gal"><div class="ph sage"><img class="ph-img" src="img/photo/p-waiting2.jpg" alt="待合室" loading="lazy"></div><figcaption><div class="gal-t"><b>03</b><span>待合室</span></div><p>落ち着いてお待ちいただける空間です。</p></figcaption></figure>
+      <figure class="gal"><div class="ph"><img class="ph-img" src="img/photo/r-shinsatsu2.jpg" alt="診察室" loading="lazy"></div><figcaption><div class="gal-t"><b>04</b><span>診察室</span></div><p>プライバシーに配慮した個室です。</p></figcaption></figure>
+      <figure class="gal"><div class="ph cream"><img class="ph-img" src="img/photo/p-exam-room.jpg" alt="検査室" loading="lazy"></div><figcaption><div class="gal-t"><b>05</b><span>検査設備</span></div><p>超音波検査機器など。</p></figcaption></figure>
+      <figure class="gal"><div class="ph sage"><img class="ph-img" src="img/photo/p-payment.jpg" alt="キャッシュレス決済に対応したお会計" loading="lazy"></div><figcaption><div class="gal-t"><b>06</b><span>お会計</span></div><p>各種キャッシュレス決済に対応。</p></figcaption></figure>
     </div>
     <div class="staff">
-      <div class="st"><div class="ph"></div><b>看護師</b><small>「緊張されている方も、どうぞ気軽に声をかけてください」</small></div>
-      <div class="st"><div class="ph sage"></div><b>医療事務</b><small>「ご予約やお支払いのことは受付へ」</small></div>
-      <div class="st"><div class="ph cream"></div><b>看護師</b><small>「検査の前には、流れをていねいにご説明します」</small></div>
-      <div class="st"><div class="ph"></div><b>医療事務</b><small>「WEB問診の入力もお手伝いします」</small></div>
+      <div class="st"><div class="ph"><img class="ph-img" src="img/photo/r-naishin.jpg" alt="内診室" loading="lazy"></div><b>看護師</b><small>「緊張されている方も、どうぞ気軽に声をかけてください」</small></div>
+      <div class="st"><div class="ph sage"><img class="ph-img" src="img/photo/p-staff-card.jpg" alt="受付で診察券をお渡しする様子" loading="lazy"></div><b>医療事務</b><small>「ご予約やお支払いのことは受付へ」</small></div>
+      <div class="st"><div class="ph cream"><img class="ph-img" src="img/photo/r-shochi.jpg" alt="処置室" loading="lazy"></div><b>看護師</b><small>「検査の前には、流れをていねいにご説明します」</small></div>
+      <div class="st"><div class="ph"><img class="ph-img" src="img/photo/r-uketsuke.jpg" alt="受付カウンター" loading="lazy"></div><b>医療事務</b><small>「WEB問診の入力もお手伝いします」</small></div>
     </div>
   </div>
 </section>
@@ -747,10 +815,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   <div class="wrap">
     <div class="sec-hd"><span class="eyebrow">SPECIALTY</span><h2>重点診療</h2></div>
     <div class="focus-grid">
-      <a href="#" class="focus"><div class="ph cream"><span class="ph-cap"><svg class="ico"><use href="#i-cam"/></svg>イメージ写真</span></div><div class="focus-body"><span class="en">MENOPAUSE</span><h3>更年期外来</h3><p>ほてり・気分の落ち込み・不眠など、ひとりで抱え込まずにご相談ください。</p><span class="go">詳しく見る<svg class="ico" style="width:14px;height:14px"><use href="#i-arr"/></svg></span></div></a>
-      <a href="#" class="focus"><div class="ph sage"><span class="ph-cap"><svg class="ico"><use href="#i-cam"/></svg>イメージ写真</span></div><div class="focus-body"><span class="en">CHECK UP</span><h3>婦人科検診・<br>レディースドック</h3><p>西宮市の公費検診にも対応。年に一度の定期チェックを。</p><span class="go">詳しく見る<svg class="ico" style="width:14px;height:14px"><use href="#i-arr"/></svg></span></div></a>
-      <a href="#" class="focus"><div class="ph"><span class="ph-cap"><svg class="ico"><use href="#i-cam"/></svg>イメージ写真</span></div><div class="focus-body"><span class="en">FERTILITY</span><h3>不妊治療</h3><p>検査からタイミング法・人工授精まで。体外受精が必要な場合は連携施設へご紹介します。</p><span class="go">詳しく見る<svg class="ico" style="width:14px;height:14px"><use href="#i-arr"/></svg></span></div></a>
-      <a href="#" class="focus"><div class="ph cream"><span class="ph-cap"><svg class="ico"><use href="#i-cam"/></svg>処置室</span></div><div class="focus-body"><span class="en">DAY SURGERY</span><h3>日帰り手術・精密検査</h3><p>入院の必要がない手術や精密検査を院内で行っています。</p><span class="go">詳しく見る<svg class="ico" style="width:14px;height:14px"><use href="#i-arr"/></svg></span></div></a>
+      <a href="#" class="focus"><div class="ph cream"><img class="ph-img" src="img/photo/p-women.jpg" alt="笑顔で話す女性たち" loading="lazy"></div><div class="focus-body"><span class="en">MENOPAUSE</span><h3>更年期外来</h3><p>ほてり・気分の落ち込み・不眠など、ひとりで抱え込まずにご相談ください。</p><span class="go">詳しく見る<svg class="ico" style="width:14px;height:14px"><use href="#i-arr"/></svg></span></div></a>
+      <a href="#" class="focus"><div class="ph sage"><img class="ph-img" src="img/photo/r-echo1.jpg" alt="超音波画像診断装置" loading="lazy"></div><div class="focus-body"><span class="en">CHECK UP</span><h3>婦人科検診・<br>レディースドック</h3><p>西宮市の公費検診にも対応。年に一度の定期チェックを。</p><span class="go">詳しく見る<svg class="ico" style="width:14px;height:14px"><use href="#i-arr"/></svg></span></div></a>
+      <a href="#" class="focus"><div class="ph"><img class="ph-img" src="img/photo/r-soudan.jpg" alt="落ち着いて話せる相談室" loading="lazy"></div><div class="focus-body"><span class="en">FERTILITY</span><h3>不妊治療</h3><p>検査からタイミング法・人工授精まで。体外受精が必要な場合は連携施設へご紹介します。</p><span class="go">詳しく見る<svg class="ico" style="width:14px;height:14px"><use href="#i-arr"/></svg></span></div></a>
+      <a href="#" class="focus"><div class="ph cream"><img class="ph-img" src="img/photo/r-echo2.jpg" alt="精密検査用の超音波装置" loading="lazy"></div><div class="focus-body"><span class="en">DAY SURGERY</span><h3>日帰り手術・精密検査</h3><p>入院の必要がない手術や精密検査を院内で行っています。</p><span class="go">詳しく見る<svg class="ico" style="width:14px;height:14px"><use href="#i-arr"/></svg></span></div></a>
     </div>
   </div>
 </section>
@@ -830,9 +898,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   <div class="wrap">
     <div class="sec-hd"><span class="eyebrow">COLUMN</span><h2>医療コラム</h2><p>医師が監修した、女性のからだの基礎知識</p></div>
     <div class="scroller cols">
-      <article class="col"><div class="ph"><span class="ph-cap">アイキャッチ</span></div><div class="col-body"><div class="col-meta"><span class="tag">生理痛</span><time>2026.11.05 更新</time></div><h3>生理痛は我慢しなくていい？ 受診の目安とできる治療</h3><div class="sup"><i></i>監修：院長 木内 ○○</div></div></article>
-      <article class="col"><div class="ph cream"><span class="ph-cap">アイキャッチ</span></div><div class="col-body"><div class="col-meta"><span class="tag s">更年期</span><time>2026.10.22 更新</time></div><h3>「なんとなく不調」は更年期のサイン？ セルフチェックと相談のタイミング</h3><div class="sup"><i></i>監修：院長 木内 ○○</div></div></article>
-      <article class="col"><div class="ph sage"><span class="ph-cap">アイキャッチ</span></div><div class="col-body"><div class="col-meta"><span class="tag s">検診</span><time>2026.10.08 更新</time></div><h3>子宮頸がん検診は何歳から？ 受ける間隔と西宮市の検診制度</h3><div class="sup"><i></i>監修：院長 木内 ○○</div></div></article>
+      <article class="col"><div class="ph"><img class="ph-img" src="img/photo/r-shinsatsu1.jpg" alt="診察室" loading="lazy"></div><div class="col-body"><div class="col-meta"><span class="tag">生理痛</span><time>2026.11.05 更新</time></div><h3>生理痛は我慢しなくていい？ 受診の目安とできる治療</h3><div class="sup"><i></i>監修：院長 青井 千尋</div></div></article>
+      <article class="col"><div class="ph cream"><img class="ph-img" src="img/photo/r-machiai.jpg" alt="明るい待合スペース" loading="lazy"></div><div class="col-body"><div class="col-meta"><span class="tag s">更年期</span><time>2026.10.22 更新</time></div><h3>「なんとなく不調」は更年期のサイン？ セルフチェックと相談のタイミング</h3><div class="sup"><i></i>監修：院長 青井 千尋</div></div></article>
+      <article class="col"><div class="ph sage"><img class="ph-img" src="img/photo/r-naishin.jpg" alt="内診室" loading="lazy"></div><div class="col-body"><div class="col-meta"><span class="tag s">検診</span><time>2026.10.08 更新</time></div><h3>子宮頸がん検診は何歳から？ 受ける間隔と西宮市の検診制度</h3><div class="sup"><i></i>監修：院長 青井 千尋</div></div></article>
     </div>
     <a href="#" class="more">コラム一覧を見る<svg class="ico"><use href="#i-arr"/></svg></a>
   </div>
@@ -844,12 +912,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div class="sec-hd"><span class="eyebrow">INSTAGRAM</span><h2>Instagram</h2></div>
     <div class="ig-acct"><span class="ig-av"><i><svg class="logo-mark" style="width:30px;height:30px"><use href="#logo"/></svg></i></span><div><b>@kiuchi_clinic</b><small>アカウント名はダミー</small></div></div>
     <div class="ig-grid">
-      <div class="ph"><span>PMSって<br>なに？</span></div>
-      <div class="ph sage"><span>はじめての<br>婦人科</span></div>
-      <div class="ph cream"><span>院内<br>ツアー</span></div>
-      <div class="ph cream"><span>検診の<br>流れ</span></div>
-      <div class="ph"><span>更年期<br>Q&amp;A</span></div>
-      <div class="ph sage"><span>スタッフ<br>紹介</span></div>
+      <div class="ph"><img class="ph-img" src="img/photo/r-soudan.jpg" alt="" loading="lazy"><span>PMSって<br>なに？</span></div>
+      <div class="ph sage"><img class="ph-img" src="img/photo/p-reception.jpg" alt="" loading="lazy"><span>はじめての<br>婦人科</span></div>
+      <div class="ph cream"><img class="ph-img" src="img/photo/p-waiting.jpg" alt="" loading="lazy"><span>院内<br>ツアー</span></div>
+      <div class="ph cream"><img class="ph-img" src="img/photo/r-echo1.jpg" alt="" loading="lazy"><span>検診の<br>流れ</span></div>
+      <div class="ph"><img class="ph-img" src="img/photo/p-women.jpg" alt="" loading="lazy"><span>更年期<br>Q&amp;A</span></div>
+      <div class="ph sage"><img class="ph-img" src="img/photo/p-staff-card.jpg" alt="" loading="lazy"><span>スタッフ<br>紹介</span></div>
     </div>
     <a href="#" class="more"><svg class="ico"><use href="#i-ig"/></svg>Instagramをフォロー</a>
   </div>
@@ -890,8 +958,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
           <div class="route-steps">
             <div class="rs"><div class="ph"><span class="n">1</span></div><small>○○改札を出る</small></div>
             <div class="rs"><div class="ph cream"><span class="n">2</span></div><small>○○口へ進む</small></div>
-            <div class="rs"><div class="ph sage"><span class="n">3</span></div><small>○○を右へ</small></div>
-            <div class="rs"><div class="ph"><span class="n">4</span></div><small>ビル入口</small></div>
+            <div class="rs"><div class="ph sage"><img class="ph-img" src="img/photo/p-building.jpg" alt="クリニックが入る建物" loading="lazy"><span class="n">3</span></div><small>○○を右へ</small></div>
+            <div class="rs"><div class="ph"><img class="ph-img" src="img/photo/p-entrance.jpg" alt="ビル入口" loading="lazy"><span class="n">4</span></div><small>ビル入口</small></div>
           </div>
         </div>
         <div class="acc-btns">
